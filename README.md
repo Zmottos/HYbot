@@ -21,7 +21,7 @@ PS {folder} & {python.exe} "{file path}"
 ```
 ex:
 ```bash
-PS C:\Users\{user}\Desktop\HYbot> & C:/Users/{user}/AppData/Local/Microsoft/WindowsApps/python3.9.exe "c:/Users/{user{/Desktop/HYbot/hybot.py"
+PS C:\Users\{user}\Desktop\HYbot> & C:/Users/{user}/AppData/Local/Microsoft/WindowsApps/python3.11.exe "c:/Users/{user}/Desktop/HYbot/hybot.py"
 ```
 
 ## Contributing
