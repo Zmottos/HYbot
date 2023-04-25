@@ -14,7 +14,6 @@ TOKEN = str(os.getenv("DISCORDTOKEN"))
 KEY = str(os.getenv("APIKEY"))
 bot = discord.Bot()
 
-#C:\Users\Danie\Desktop\ICS 4C\HYbot\hybot.py
 intents = discord.Intents.default()
 intents.message_content = True
 
