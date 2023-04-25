@@ -148,5 +148,41 @@ async def fishing(ctx,
         else:
             await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid orb fishing stats")
 
+### To be added
+
+#@bot.slash_command(name = "stats", description = "Gets the stats of a hypixel player")
+#async def statistics(ctx, name: str):
+#    await ctx.respond(f"Unable to get stats of {name}, command currently work in progress")
+
+@bot.slash_command(name = "skywars", description = "Get the skywars statistics of a player")
+@option("name",
+        description = "Enter the player's username")
+@option("type",
+        description = "Enter the gamemode you want to view",
+        choices = ["all", "solo_normal", "solo_insane", "teams_normal", "teams_insane", "mega_normal", "mega_doubles", "solo_lab", "teams_lab"],
+        default = "all")
+async def skywars(ctx, name: str, type: str):
+    await ctx.respond(f"Getting stats of {name}, please wait a moment")
+    hr.get_player(name,KEY)
+    data = hr.get_data(name)
+    if data == -1:
+        await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid Name")
+    else:
+        await ctx.edit(content = "Updated users stats, formatting")
+        try:
+            data['player']['stats']['SkyWars']
+        except:
+            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid statistics")
+            type = "Null"
+    if type == "all":
+        await ctx.edit(content = f"Unfinished Type, please try again later")
+    elif type == "solo_lab":
+        info = hf.get_lab_solo(data)
+        await ctx.edit(content = f"{name}'s solo labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
+    elif type == "teams_lab":
+        info = hf.get_lab_teams(data)
+        await ctx.edit(content = f"{name}'s team labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
+    else:
+        await ctx.edit(content = f"Unfinished Type, please try again later")
 
 bot.run(TOKEN)

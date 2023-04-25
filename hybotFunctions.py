@@ -1,5 +1,3 @@
-ORBS = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"]
-
 def get_orbs(orb, orbs):
     if orb in orbs:
         return int(orbs[orb])
@@ -15,3 +13,16 @@ def get_lab_solo(data):
     info.append(data['wins_lab_solo'])
     info.append(data['losses_lab_solo'])
     return info
+
+def get_lab_teams(data):
+    info = []
+    info.append(data['deaths_lab_teams'])
+    info.append(data['time_played_lab_teams'])
+    info.append(data['kills_lab_teams'])
+    info.append(data['wins_lab_teams'])
+    info.append(data['losses_lab_teams'])
+    return info
+
+    
+if __name__ == "__main__":
+    print("Function file")
