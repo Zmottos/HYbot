@@ -5,7 +5,7 @@ import dotenv
 import hypixelAPIfunctions as hyapi
 import hypixelreader as hr
 import hybotFunctions as hf
-ORBS = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades", "Zmottos"]
+ORBS = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"]
 
 
 dotenv.load_dotenv()
