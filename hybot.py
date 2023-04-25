@@ -22,6 +22,7 @@ client = discord.Client(intents=intents)
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="hypixel"))
+    print("Bot started")
 
 @bot.slash_command(name = "last_played", description = "Get stats of a player")
 async def stats(ctx, name: str):
