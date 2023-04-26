@@ -180,18 +180,24 @@ async def skywars(ctx, name: str, type: str):
             await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid skywars stats")
         else:
             await ctx.edit(content = f"{name}'s skywars stats \nKills: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
+    elif type == "solo_normal":
+        info = hf.get_spec_skywars(data, "solo_normal")
+        if info == -1:
+            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid solo normal stats")
+        else:
+            await ctx.edit(content = f"{name}'s solo normal stats \nKills: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
     elif type == "solo_lab":
-        info = hf.get_lab_solo(data)
+        info = hf.get_spec_skywars(data, "lab_solo")
         if info == -1:
             await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab solo stats")
         else:
-            await ctx.edit(content = f"{name}'s solo labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
+            await ctx.edit(content = f"{name}'s solo labortory stats \nKill: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
     elif type == "teams_lab":
-        info = hf.get_lab_teams(data)
+        info = hf.get_spec_skywars(data, "lab_teams")
         if info == -1:
             await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab teams stats")
         else:
-            await ctx.edit(content = f"{name}'s team labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
+            await ctx.edit(content = f"{name}'s team labortory stats \nKill: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
     else:
         await ctx.edit(content = f"Unfinished Type, please try again later")
 

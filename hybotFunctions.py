@@ -3,29 +3,6 @@ def get_orbs(orb, orbs):
         return int(orbs[orb])
     else:
         return 0
-    
-def get_lab_solo(data):
-    data = data['player']['stats']['SkyWars']
-    info = []
-    info.append(data['deaths_lab_solo'])
-    info.append(data['time_played_lab_solo'])
-    info.append(data['kills_lab_solo'])
-    info.append(data['wins_lab_solo'])
-    info.append(data['losses_lab_solo'])
-    return info
-
-def get_lab_teams(data):
-    data = data['player']['stats']['SkyWars']
-    info = []
-    try:
-        info.append(data['deaths_lab_teams'])
-        info.append(data['time_played_lab_teams'])
-        info.append(data['kills_lab_teams'])
-        info.append(data['wins_lab_teams'])
-        info.append(data['losses_lab_teams'])
-    except:
-        return -1
-    return info
 
 def get_all_skywars(data):
     data = data['player']['stats']['SkyWars']
@@ -38,6 +15,18 @@ def get_all_skywars(data):
     except:
         return -1
     return info
-    
+
+def get_spec_skywars(data, position):
+    data = data['player']['stats']['SkyWars']
+    info = []
+    try:
+        info.append(data[f'kills_{position}'])
+        info.append(data[f'deaths_{position}'])
+        info.append(data[f'wins_{position}'])
+        info.append(data[f'losses_{position}'])
+    except:
+        return -1
+    return info
+
 if __name__ == "__main__":
     print("Function file")
