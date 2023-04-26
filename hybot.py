@@ -159,7 +159,7 @@ async def fishing(ctx,
         description = "Enter the player's username")
 @option("type",
         description = "Enter the gamemode you want to view",
-        choices = ["all", "solo_normal", "solo_insane", "teams_normal", "teams_insane", "mega_normal", "mega_doubles", "solo_lab", "teams_lab"],
+        choices = ["all", "solo_normal", "solo_insane", "team_normal", "team_insane", "mega_normal", "mega_doubles", "lab_solo", "lab_team"],
         default = "all")
 async def skywars(ctx, name: str, type: str):
     await ctx.respond(f"Getting stats of {name}, please wait a moment")
@@ -180,25 +180,10 @@ async def skywars(ctx, name: str, type: str):
             await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid skywars stats")
         else:
             await ctx.edit(content = f"{name}'s skywars stats \nKills: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
-    elif type == "solo_normal":
-        info = hf.get_spec_skywars(data, "solo_normal")
-        if info == -1:
-            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid solo normal stats")
-        else:
-            await ctx.edit(content = f"{name}'s solo normal stats \nKills: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
-    elif type == "solo_lab":
-        info = hf.get_spec_skywars(data, "lab_solo")
-        if info == -1:
-            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab solo stats")
-        else:
-            await ctx.edit(content = f"{name}'s solo labortory stats \nKill: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
-    elif type == "teams_lab":
-        info = hf.get_spec_skywars(data, "lab_teams")
-        if info == -1:
-            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab teams stats")
-        else:
-            await ctx.edit(content = f"{name}'s team labortory stats \nKill: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
+    elif type == "Null":
+        pass
     else:
-        await ctx.edit(content = f"Unfinished Type, please try again later")
+        info = hf.get_spec_skywars(data, type)
+        await ctx.edit(content = hf.parse_skywars_info(info, name, type.replace('_', ' ')))
 
 bot.run(TOKEN)
