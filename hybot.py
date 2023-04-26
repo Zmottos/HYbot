@@ -175,7 +175,11 @@ async def skywars(ctx, name: str, type: str):
             await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid statistics")
             type = "Null"
     if type == "all":
-        await ctx.edit(content = f"Unfinished Type, please try again later")
+        info = hf.get_all_skywars(data)
+        if info == -1:
+            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid skywars stats")
+        else:
+            await ctx.edit(content = f"{name}'s skywars stats \nKills: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
     elif type == "solo_lab":
         info = hf.get_lab_solo(data)
         if info == -1:
