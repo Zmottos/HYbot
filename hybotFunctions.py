@@ -16,11 +16,14 @@ def get_lab_solo(data):
 
 def get_lab_teams(data):
     info = []
-    info.append(data['deaths_lab_teams'])
-    info.append(data['time_played_lab_teams'])
-    info.append(data['kills_lab_teams'])
-    info.append(data['wins_lab_teams'])
-    info.append(data['losses_lab_teams'])
+    try:
+        info.append(data['deaths_lab_teams'])
+        info.append(data['time_played_lab_teams'])
+        info.append(data['kills_lab_teams'])
+        info.append(data['wins_lab_teams'])
+        info.append(data['losses_lab_teams'])
+    except:
+        return -1
     return info
 
     

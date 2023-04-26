@@ -178,10 +178,16 @@ async def skywars(ctx, name: str, type: str):
         await ctx.edit(content = f"Unfinished Type, please try again later")
     elif type == "solo_lab":
         info = hf.get_lab_solo(data)
-        await ctx.edit(content = f"{name}'s solo labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
+        if info == -1:
+            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab solo stats")
+        else:
+            await ctx.edit(content = f"{name}'s solo labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
     elif type == "teams_lab":
         info = hf.get_lab_teams(data)
-        await ctx.edit(content = f"{name}'s team labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
+        if info == -1:
+            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab teams stats")
+        else:
+            await ctx.edit(content = f"{name}'s team labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
     else:
         await ctx.edit(content = f"Unfinished Type, please try again later")
 
