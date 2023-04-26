@@ -32,7 +32,7 @@ def get_spec_skywars(data, position):
 
 def parse_skywars_info(data, name, type):
     if data == -1:
-        return f"An Error occured while fetching data from {name}: Invalid skywars stats"
+        return f"An Error occured while fetching data from {name}: Invalid skywars stats at: {type}"
     else:
         return f"{name}'s {type} stats \nKills: {data[0]} Deaths: {data[1]} KDR: {'%.2f' % (data[0] / data[1])}\nWins: {data[2]} Losses: {data[3]} W/R ratio: {'%.2f' % (data[2] / data[3])}"
 
