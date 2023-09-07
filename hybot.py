@@ -124,9 +124,11 @@ async def fishing(ctx,
             if "vulcans_blessing" in data["enchants"]:
                 message += f"Lava Fishing unlocked\n"
             if "neptunes_fury" in data["enchants"]:
-                message += f"Ice Fishing unlocked\n\n"
+                message += f"Ice Fishing unlocked\n"
         if "activeFishingRod" in data:
-            message += f"{name} is currently using {data['activeFishingRod'].replace('_', ' ').title()}"
+            message += f"\n{name} is currently using {data['activeFishingRod'].replace('_', ' ').title()}"
+        else:
+            message += f"\n{name} is currently using Fishing Rod 3000"
         await ctx.edit(content = f"{name}'s Misc fishings stats:\n{message}")
     elif type == "specials":
         message = ""
@@ -185,5 +187,18 @@ async def skywars(ctx, name: str, type: str):
     else:
         info = hf.get_spec_skywars(data, type)
         await ctx.edit(content = hf.parse_skywars_info(info, name, type.replace('_', ' ')))
+
+@bot.slash_command(name="bedwars", description="Get bedwars statistics of a player")
+@option("name",
+        description = "Enter the players name")
+@option("type",
+        description = "Enter the type of statistics you want",
+        choices = ["all", "solos", "duos", "3v3v3v3", "4v4v4v4", "4v4", "dream"],
+        default = "all")
+async def bedwars(ctx, name: str, type: str):
+    await ctx.respond("Sorry this command is being worked on!")
+    hr.get_player(name,KEY)
+    data = hr.get_data(name)
+
 
 bot.run(TOKEN)
