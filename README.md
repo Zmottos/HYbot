@@ -26,9 +26,9 @@ PS C:\Users\{user}\Desktop\HYbot> & C:/Users/{user}/AppData/Local/Microsoft/Wind
 
 ## Python Libraries required
 
-dotenv `pip install dotenv`
-mojang `pip install mojang`
-pycord `pip install pycord`
+dotenv `pip install dotenv`  
+mojang `pip install mojang`  
+pycord `pip install pycord`  
 
 ## Contributing
 
