@@ -12,7 +12,7 @@ Download the github files at [git](https://github.com/Zmottos/HYbot) the bot
 Download the files
 
 Ensure they're all in the same folder
-
+    
 Run it using either your IDE or in your command line
 ```
 
@@ -23,6 +23,12 @@ ex:
 ```bash
 PS C:\Users\{user}\Desktop\HYbot> & C:/Users/{user}/AppData/Local/Microsoft/WindowsApps/python3.11.exe "c:/Users/{user}/Desktop/HYbot/hybot.py"
 ```
+
+## Python Libraries required
+
+dotenv `pip install dotenv`
+mojang `pip install mojang`
+pycord `pip install pycord`
 
 ## Contributing
 
