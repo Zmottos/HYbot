@@ -18,6 +18,25 @@ def get_all_skywars(data):
         return -1
     return info
 
+def get_dropper(data):
+    try:
+        data = data['player']['stats']['Arcade']['dropper']
+    except:
+        return -1
+    info = []
+    try:
+        info.append(data['games_played'])
+        info.append(data['games_finished'])
+        info.append(data['flawless_games'])
+        info.append(data['maps_completed'])
+        info.append(data['wins'])
+        info.append(data['fails'])
+        info.append(data['fastest_game'])
+    except:
+        return -1
+    return info
+
+
 def get_spec_skywars(data, position):
     data = data['player']['stats']['SkyWars']
     info = []
@@ -38,7 +57,7 @@ def parse_skywars_info(data, name, type):
 
 def parse_bedwars_info(data, name, type):
     if data == -1:
-        return f"An Error occured while fetching data from {name}: Invalid skywars stats at: {type}"
+        return f"An Error occured while fetching data from {name}: Invalid bedwars stats at: {type}"
     else:
         pass
 
