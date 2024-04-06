@@ -1,7 +1,6 @@
 import os
 import dotenv
 import time
-import random
 import requests
 import json
 from mojang import API
@@ -30,7 +29,7 @@ def get_player(name,api_key):
     update = False
     count = 0
     t = time.time()
-    t = int(t)+random.randint(0,1)
+    t = int(t)
 
     try:
         player_uuid = api.get_uuid(name)
@@ -87,6 +86,7 @@ def get_data(name):
         dict: a dictionary of the player's data
     """    
     with open(PATH, "r") as f:
+        name = f"{name}" + " " * (16 - (len(name)))
         for line in f:
             if name.lower() in line[:17].lower():
                 return json.loads(line[28:])

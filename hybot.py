@@ -124,9 +124,19 @@ async def fishing(ctx,
             if "vulcans_blessing" in data["enchants"]:
                 message += f"Lava Fishing unlocked\n"
             if "neptunes_fury" in data["enchants"]:
-                message += f"Ice Fishing unlocked\n\n"
+                message += f"Ice Fishing unlocked\n"
+            if "mythical_hook" in data["enchants"]:
+                if "toggle" in data["enchants"]["mythical_hook"]:
+                    if data["enchants"]["mythical_hook"]["toggle"] == True:
+                        message += f"Can catch Mythical Fish\n"
+                    else:
+                        message += f"Cannot catch Mythical Fish (toggled)\n"
+                else:
+                    message += f"Can catch Mythical Fish (unset)\n"
         if "activeFishingRod" in data:
-            message += f"{name} is currently using {data['activeFishingRod'].replace('_', ' ').title()}"
+            message += f"\n{name} is currently using {data['activeFishingRod'].replace('_', ' ').title()}"
+        else:
+            message += f"\n{name} is currently using Fishing Rod 3000"
         await ctx.edit(content = f"{name}'s Misc fishings stats:\n{message}")
     elif type == "specials":
         message = ""
@@ -159,7 +169,7 @@ async def fishing(ctx,
         description = "Enter the player's username")
 @option("type",
         description = "Enter the gamemode you want to view",
-        choices = ["all", "solo_normal", "solo_insane", "teams_normal", "teams_insane", "mega_normal", "mega_doubles", "solo_lab", "teams_lab"],
+        choices = ["all", "solo_normal", "solo_insane", "team_normal", "team_insane", "mega_normal", "mega_doubles", "lab_solo", "lab_team"],
         default = "all")
 async def skywars(ctx, name: str, type: str):
     await ctx.respond(f"Getting stats of {name}, please wait a moment")
@@ -180,19 +190,43 @@ async def skywars(ctx, name: str, type: str):
             await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid skywars stats")
         else:
             await ctx.edit(content = f"{name}'s skywars stats \nKills: {info[0]} Deaths: {info[1]} KDR: {'%.2f' % (info[0] / info[1])}\nWins: {info[2]} Losses: {info[3]} W/R ratio: {'%.2f' % (info[2] / info[3])}")
-    elif type == "solo_lab":
-        info = hf.get_lab_solo(data)
-        if info == -1:
-            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab solo stats")
-        else:
-            await ctx.edit(content = f"{name}'s solo labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
-    elif type == "teams_lab":
-        info = hf.get_lab_teams(data)
-        if info == -1:
-            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid lab teams stats")
-        else:
-            await ctx.edit(content = f"{name}'s team labortory stats \nKill: {info[2]} Deaths: {info[0]} KDR: {'%.2f' % (info[2] / info[0])}\nWins: {info[3]} Losses: {info[4]} W/R ratio: {'%.2f' % (info[3] / info[4])}")
+    elif type == "Null":
+        pass
     else:
-        await ctx.edit(content = f"Unfinished Type, please try again later")
+        info = hf.get_spec_skywars(data, type)
+        await ctx.edit(content = hf.parse_skywars_info(info, name, type.replace('_', ' ')))
+
+@bot.slash_command(name="bedwars", description="Get bedwars statistics of a player")
+@option("name",
+        description = "Enter the players name")
+@option("type",
+        description = "Enter the type of statistics you want",
+        choices = ["all", "solos", "duos", "3v3v3v3", "4v4v4v4", "4v4", "dream"],
+        default = "all")
+async def bedwars(ctx, name: str, type: str):
+    await ctx.respond("Sorry this command is being worked on!")
+    hr.get_player(name,KEY)
+    data = hr.get_data(name)
+
+
+@bot.slash_command(name="dropper", description="Get dropper statistics of a player")
+@option("name",
+        description = "Enter the players name")
+
+async def dropper(ctx, name: str):
+    await ctx.respond(f"Getting stats of {name}, please wait a moment")
+    hr.get_player(name, KEY)
+    data = hr.get_data(name)
+    if data == -1:
+        await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid Name")
+    else:
+        await ctx.edit(content = "Updated users stats, formatting")
+        info = hf.get_dropper(data)
+        if info == -1:
+            await ctx.edit(content = f"An Error occured while fetching data from {name}: Invalid dropper stats")
+        else:
+            await ctx.edit(content = f"{name}'s dropper stats \nGames Played: {info[0]}, Games Finished {info[1]}, Flawless Games: {info[2]}\nRound Completions: {info[3]}, Wins: {info[4]}, Fails: {info[5]}\nWin percentage: {round((info[4] / info[0]) * 100)}%, Map win percentage {round((1 - (info[5] / info[3])) * 100)}%\nFastest Time: {str(info[6])[0:len(str(info[6]))-3]}s, {abs(info[6]) % 1000}ms")
+    
+
 
 bot.run(TOKEN)
