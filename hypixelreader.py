@@ -86,6 +86,7 @@ def get_data(name):
         dict: a dictionary of the player's data
     """    
     with open(PATH, "r") as f:
+        name = f"{name}" + " " * (16 - (len(name)))
         for line in f:
             if name.lower() in line[:17].lower():
                 return json.loads(line[28:])
